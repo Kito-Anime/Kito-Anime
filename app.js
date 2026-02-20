@@ -20,7 +20,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
-// DOM
+/* DOM */
 const loginTab = document.getElementById("loginTab");
 const registerTab = document.getElementById("registerTab");
 const authForm = document.getElementById("authForm");
@@ -30,7 +30,7 @@ const message = document.getElementById("message");
 
 let isLogin = true;
 
-// Chuyển tab
+/* Chuyển tab */
 loginTab.onclick = () => {
   isLogin = true;
   submitBtn.textContent = "Đăng nhập";
@@ -47,11 +47,12 @@ registerTab.onclick = () => {
   message.textContent = "";
 };
 
-// Submit form
+/* Submit */
 authForm.onsubmit = async (e) => {
   e.preventDefault();
-  const email = email.value.trim();
-  const password = password.value.trim();
+
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
 
   if (password.length < 6) {
     message.textContent = "Mật khẩu tối thiểu 6 ký tự";
@@ -61,29 +62,34 @@ authForm.onsubmit = async (e) => {
   try {
     if (isLogin) {
       await signInWithEmailAndPassword(auth, email, password);
+      message.style.color = "#4ade80";
       message.textContent = "Đăng nhập thành công";
     } else {
       await createUserWithEmailAndPassword(auth, email, password);
+      message.style.color = "#4ade80";
       message.textContent = "Đăng ký thành công";
     }
   } catch (error) {
+    message.style.color = "#f87171";
     message.textContent = error.message;
   }
 };
 
-// Logout
+/* Logout */
 logoutBtn.onclick = async () => {
   await signOut(auth);
 };
 
-// Theo dõi trạng thái đăng nhập
+/* Theo dõi trạng thái */
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    logoutBtn.classList.remove("hidden");
     authForm.classList.add("hidden");
+    logoutBtn.classList.remove("hidden");
+    message.style.color = "#4ade80";
     message.textContent = "Đã đăng nhập: " + user.email;
   } else {
-    logoutBtn.classList.add("hidden");
     authForm.classList.remove("hidden");
+    logoutBtn.classList.add("hidden");
+    message.textContent = "";
   }
 });
