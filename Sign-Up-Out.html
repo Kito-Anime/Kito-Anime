@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Kito Anime Auth</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="auth-container">
+    <h2>Hệ thống tài khoản</h2>
+
+    <div class="tabs">
+      <button id="loginTab" class="active">Đăng nhập</button>
+      <button id="registerTab">Đăng ký</button>
+    </div>
+
+    <div id="message"></div>
+
+    <form id="authForm">
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="password" placeholder="Mật khẩu (>=6 ký tự)" required>
+      <button type="submit" id="submitBtn">Đăng nhập</button>
+    </form>
+
+    <button id="logoutBtn" class="hidden">Đăng xuất</button>
+
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
