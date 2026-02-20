@@ -7,24 +7,42 @@
 </head>
 <body>
 
-  <div class="auth-container">
-    <h2>Hệ thống tài khoản</h2>
+  <div class="background"></div>
 
-    <div class="tabs">
-      <button id="loginTab" class="active">Đăng nhập</button>
-      <button id="registerTab">Đăng ký</button>
+  <div class="auth-wrapper">
+    <div class="auth-card">
+
+      <h2 class="title">Anime Streaming</h2>
+      <p class="subtitle">Hệ thống tài khoản</p>
+
+      <div class="tabs">
+        <button id="loginTab" class="tab active">Đăng nhập</button>
+        <button id="registerTab" class="tab">Đăng ký</button>
+      </div>
+
+      <div id="message"></div>
+
+      <form id="authForm" autocomplete="off">
+        <div class="input-group">
+          <input type="email" id="email" required>
+          <label>Email</label>
+        </div>
+
+        <div class="input-group">
+          <input type="password" id="password" required minlength="6">
+          <label>Mật khẩu (≥6 ký tự)</label>
+        </div>
+
+        <button type="submit" id="submitBtn" class="primary-btn">
+          Đăng nhập
+        </button>
+      </form>
+
+      <button id="logoutBtn" class="logout-btn hidden">
+        Đăng xuất
+      </button>
+
     </div>
-
-    <div id="message"></div>
-
-    <form id="authForm">
-      <input type="email" id="email" placeholder="Email" required>
-      <input type="password" id="password" placeholder="Mật khẩu (>=6 ký tự)" required>
-      <button type="submit" id="submitBtn">Đăng nhập</button>
-    </form>
-
-    <button id="logoutBtn" class="hidden">Đăng xuất</button>
-
   </div>
 
   <script type="module" src="app.js"></script>
