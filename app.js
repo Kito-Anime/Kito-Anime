@@ -1,20 +1,28 @@
-import { auth } from "./firebase.js";
+import { auth, db } from "./firebase.js";
 
 import {
 onAuthStateChanged,
 signOut
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-const accountBtn = document.getElementById("accountBtn");
-const accountMenu = document.getElementById("accountMenu");
+import {
+collection,
+getDocs
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-const userEmail = document.getElementById("userEmail");
-const menuEmail = document.getElementById("menuEmail");
+const accountBtn=document.getElementById("accountBtn");
+const accountMenu=document.getElementById("accountMenu");
 
-const loginBtn = document.getElementById("loginBtn");
-const logoutBtn = document.getElementById("logoutBtn");
+const userEmail=document.getElementById("userEmail");
+const menuEmail=document.getElementById("menuEmail");
 
-let currentUser = null;
+const loginBtn=document.getElementById("loginBtn");
+const logoutBtn=document.getElementById("logoutBtn");
+
+const grid=document.getElementById("animeGrid");
+const notice=document.getElementById("loginNotice");
+
+let currentUser=null;
 
 /* kiểm tra đăng nhập */
 
@@ -22,17 +30,21 @@ onAuthStateChanged(auth,(user)=>{
 
 if(user){
 
-currentUser = user;
+currentUser=user;
 
-userEmail.textContent = user.email;
-menuEmail.textContent = user.email;
+userEmail.textContent=user.email;
+menuEmail.textContent=user.email;
 
 loginBtn.style.display="none";
 logoutBtn.style.display="block";
 
+notice.style.display="none";
+
+loadAnime();
+
 }else{
 
-currentUser = null;
+currentUser=null;
 
 userEmail.textContent="Tài khoản";
 menuEmail.textContent="Chưa đăng nhập";
@@ -40,22 +52,36 @@ menuEmail.textContent="Chưa đăng nhập";
 loginBtn.style.display="block";
 logoutBtn.style.display="none";
 
+notice.style.display="block";
+
 }
 
 });
 
-/* mở menu tài khoản */
+/* menu */
 
 accountBtn.onclick=()=>{
 
-accountMenu.style.display =
+accountMenu.style.display=
 accountMenu.style.display==="flex"
-? "none"
-: "flex";
+?"none"
+:"flex";
 
 };
 
-/* chuyển sang trang đăng nhập */
+/* click ngoài */
+
+document.addEventListener("click",(e)=>{
+
+if(!accountBtn.contains(e.target)&&!accountMenu.contains(e.target)){
+
+accountMenu.style.display="none";
+
+}
+
+});
+
+/* login */
 
 loginBtn.onclick=()=>{
 
@@ -63,24 +89,59 @@ location.href="auth.html";
 
 };
 
-/* đăng xuất */
+/* logout */
 
 logoutBtn.onclick=async()=>{
 
 await signOut(auth);
 
-accountMenu.style.display="none";
-
 };
 
-/* đóng menu khi click ngoài */
+/* load anime */
 
-document.addEventListener("click",(e)=>{
+async function loadAnime(){
 
-if(!accountBtn.contains(e.target) && !accountMenu.contains(e.target)){
+grid.innerHTML="";
 
-accountMenu.style.display="none";
+const snap=await getDocs(collection(db,"anime"));
+
+snap.forEach(doc=>{
+
+const data=doc.data();
+
+const card=document.createElement("div");
+
+card.className="card";
+
+card.innerHTML=`
+<img src="${data.thumbnail}">
+<h3>${data.title}</h3>
+`;
+
+card.onclick=()=>{
+
+if(currentUser){
+
+location.href=`player.html?id=${doc.id}`;
+
+}else{
+
+notice.style.display="block";
 
 }
 
+};
+
+grid.appendChild(card);
+
 });
+
+}
+
+/* login button notice */
+
+window.goLogin=function(){
+
+location.href="auth.html";
+
+};
