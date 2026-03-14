@@ -26,7 +26,7 @@ signupTab.classList.remove("active");
 loginForm.classList.add("active");
 signupForm.classList.remove("active");
 
-msg.innerText="";
+msg.textContent="";
 
 };
 
@@ -38,16 +38,16 @@ loginTab.classList.remove("active");
 signupForm.classList.add("active");
 loginForm.classList.remove("active");
 
-msg.innerText="";
+msg.textContent="";
 
 };
 
 /* LOGIN */
 
-document.getElementById("loginBtn").onclick = async ()=>{
+document.getElementById("loginBtn").onclick = async () => {
 
-const email=document.getElementById("loginEmail").value;
-const password=document.getElementById("loginPassword").value;
+const email = document.getElementById("loginEmail").value;
+const password = document.getElementById("loginPassword").value;
 
 try{
 
@@ -57,7 +57,7 @@ location.href="index.html";
 
 }catch(e){
 
-msg.innerText=e.message;
+msg.textContent = e.message;
 
 }
 
@@ -65,14 +65,14 @@ msg.innerText=e.message;
 
 /* SIGNUP */
 
-document.getElementById("signupBtn").onclick = async ()=>{
+document.getElementById("signupBtn").onclick = async () => {
 
-const email=document.getElementById("signupEmail").value;
-const password=document.getElementById("signupPassword").value;
+const email = document.getElementById("signupEmail").value;
+const password = document.getElementById("signupPassword").value;
 
 try{
 
-const cred=await createUserWithEmailAndPassword(auth,email,password);
+const cred = await createUserWithEmailAndPassword(auth,email,password);
 
 await setDoc(doc(db,"users",cred.user.uid),{
 email:cred.user.email,
@@ -80,11 +80,11 @@ createdAt:Date.now(),
 role:"user"
 });
 
-msg.innerText="Đăng kí thành công";
+msg.textContent="Tạo tài khoản thành công";
 
 }catch(e){
 
-msg.innerText=e.message;
+msg.textContent = e.message;
 
 }
 
