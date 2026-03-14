@@ -1,8 +1,12 @@
 body{
 margin:0;
 font-family:Arial;
-background:#0b0b0b;
+background:#0f0f0f;
 color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+height:100vh;
 overflow:hidden;
 }
 
@@ -12,69 +16,55 @@ width:100%;
 height:100%;
 background:linear-gradient(270deg,#ff004c,#7a00ff,#0084ff);
 background-size:600% 600%;
-animation:bgMove 12s infinite;
+animation:bg 12s infinite;
 filter:blur(120px);
 opacity:0.5;
 }
 
-@keyframes bgMove{
+@keyframes bg{
 0%{background-position:0% 50%}
 50%{background-position:100% 50%}
 100%{background-position:0% 50%}
 }
 
-.container{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
+.box{
+position:relative;
+background:#141414;
+padding:40px;
+border-radius:14px;
+width:280px;
 text-align:center;
+box-shadow:0 0 20px rgba(0,0,0,0.7);
 }
 
-/* tab bar */
-
-.tab-bar{
-position:relative;
+.tabs{
 display:flex;
+margin-top:10px;
 background:#1f1f1f;
-border-radius:10px;
-margin-bottom:20px;
+border-radius:8px;
 overflow:hidden;
 }
 
-.tab-bar button{
+.tabs button{
 flex:1;
-padding:12px;
+padding:10px;
 border:none;
 background:none;
 color:white;
 cursor:pointer;
-font-size:15px;
-z-index:2;
 }
 
-#tabIndicator{
-position:absolute;
-width:50%;
-height:100%;
+.tabs button.active{
 background:#7a00ff;
-border-radius:10px;
-transition:0.3s;
-z-index:1;
 }
-
-/* forms */
 
 .forms{
-width:280px;
+margin-top:15px;
 }
 
 .form{
 display:none;
-background:#121212;
-padding:35px;
-border-radius:12px;
-animation:fade 0.3s;
+animation:fade .3s;
 }
 
 .form.active{
@@ -98,7 +88,7 @@ color:white;
 
 input:focus{
 outline:none;
-box-shadow:0 0 6px #7a00ff;
+box-shadow:0 0 5px #7a00ff;
 }
 
 button{
@@ -119,5 +109,5 @@ background:#9d2bff;
 #msg{
 margin-top:10px;
 font-size:14px;
-color:#ff7070;
+color:#ff6b6b;
 }
