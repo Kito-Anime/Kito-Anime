@@ -1,88 +1,76 @@
-body{
+*{
+box-sizing:border-box;
 margin:0;
+padding:0;
 font-family:Arial;
-background:#0f0f0f;
-color:white;
+}
+
+body{
+height:100vh;
 display:flex;
 align-items:center;
 justify-content:center;
-height:100vh;
-overflow:hidden;
+background:linear-gradient(135deg,#141e30,#243b55);
+color:white;
 }
 
-.bg{
-position:fixed;
+.auth-container{
 width:100%;
-height:100%;
-background:linear-gradient(270deg,#ff004c,#7a00ff,#0084ff);
-background-size:600% 600%;
-animation:bg 12s infinite;
-filter:blur(120px);
-opacity:0.5;
-}
-
-@keyframes bg{
-0%{background-position:0% 50%}
-50%{background-position:100% 50%}
-100%{background-position:0% 50%}
-}
-
-.box{
-position:relative;
-background:#141414;
-padding:40px;
-border-radius:14px;
-width:280px;
-text-align:center;
-box-shadow:0 0 20px rgba(0,0,0,0.7);
-}
-
-.tabs{
 display:flex;
-margin-top:10px;
-background:#1f1f1f;
+justify-content:center;
+}
+
+.auth-card{
+width:320px;
+background:#111;
+padding:40px;
+border-radius:12px;
+box-shadow:0 10px 40px rgba(0,0,0,0.5);
+animation:fade .4s;
+}
+
+.logo{
+text-align:center;
+margin-bottom:20px;
+}
+
+.tab-switch{
+display:flex;
+background:#1d1d1d;
 border-radius:8px;
 overflow:hidden;
+margin-bottom:20px;
 }
 
-.tabs button{
+.tab-switch button{
 flex:1;
 padding:10px;
 border:none;
 background:none;
 color:white;
 cursor:pointer;
+transition:.2s;
 }
 
-.tabs button.active{
+.tab-switch button.active{
 background:#7a00ff;
-}
-
-.forms{
-margin-top:15px;
 }
 
 .form{
 display:none;
-animation:fade .3s;
+flex-direction:column;
 }
 
 .form.active{
-display:block;
-}
-
-@keyframes fade{
-from{opacity:0; transform:translateY(10px);}
-to{opacity:1; transform:translateY(0);}
+display:flex;
 }
 
 input{
-width:100%;
 padding:10px;
-margin:8px 0;
+margin-bottom:12px;
 border:none;
-border-radius:8px;
-background:#1f1f1f;
+border-radius:6px;
+background:#1e1e1e;
 color:white;
 }
 
@@ -92,22 +80,27 @@ box-shadow:0 0 5px #7a00ff;
 }
 
 button{
-width:100%;
 padding:10px;
-margin-top:10px;
 border:none;
-border-radius:8px;
+border-radius:6px;
 background:#7a00ff;
 color:white;
 cursor:pointer;
+transition:.2s;
 }
 
 button:hover{
-background:#9d2bff;
+background:#9a2bff;
 }
 
 #msg{
-margin-top:10px;
+margin-top:12px;
 font-size:14px;
-color:#ff6b6b;
+text-align:center;
+color:#ff8080;
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(10px);}
+to{opacity:1;transform:translateY(0);}
 }
