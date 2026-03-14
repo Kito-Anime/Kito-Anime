@@ -1,106 +1,80 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
 }
 
-body {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  animation: bgAnimation 12s infinite alternate;
+body{
+background:#0f0f0f;
+color:white;
 }
 
-/* Background chuyển màu dịu */
-@keyframes bgAnimation {
-  0% { background: #1e293b; }
-  25% { background: #0f172a; }
-  50% { background: #1e1b4b; }
-  75% { background: #0c4a6e; }
-  100% { background: #111827; }
+/* header */
+
+header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:15px 30px;
+background:#151515;
 }
 
-/* Khung đen nổi */
-.auth-box {
-  width: 360px;
-  padding: 30px;
-  background: #000000;
-  border-radius: 12px;
-  box-shadow: 0 0 30px rgba(0,0,0,0.7);
-  text-align: center;
-  color: white;
+.logo{
+font-size:22px;
+font-weight:bold;
+color:#8b5cf6;
 }
 
-.auth-box h2 {
-  margin-bottom: 20px;
+nav a{
+margin-left:20px;
+text-decoration:none;
+color:white;
+font-size:14px;
 }
 
-.tabs {
-  display: flex;
-  margin-bottom: 15px;
+nav a:hover{
+color:#8b5cf6;
 }
 
-.tab {
-  flex: 1;
-  padding: 10px;
-  border: none;
-  cursor: pointer;
-  background: #111;
-  color: white;
-  transition: 0.3s;
+#search{
+padding:8px;
+border:none;
+border-radius:6px;
+background:#1f1f1f;
+color:white;
 }
 
-.tab.active {
-  background: #2563eb;
+/* banner */
+
+.banner{
+height:200px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:linear-gradient(90deg,#7a00ff,#ff0066);
+margin-bottom:30px;
 }
 
-input {
-  width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border-radius: 6px;
-  border: none;
-  background: #1a1a1a;
-  color: white;
+/* anime grid */
+
+.anime-section{
+padding:20px 40px;
 }
 
-button[type="submit"] {
-  width: 100%;
-  padding: 10px;
-  margin-top: 8px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  background: #2563eb;
-  color: white;
-  font-weight: bold;
-  transition: 0.3s;
+.anime-grid{
+margin-top:20px;
+display:grid;
+grid-template-columns:repeat(auto-fill,180px);
+gap:20px;
 }
 
-button[type="submit"]:hover {
-  background: #1d4ed8;
+.card{
+background:#181818;
+border-radius:10px;
+overflow:hidden;
+cursor:pointer;
+transition:.2s;
 }
 
-#logoutBtn {
-  width: 100%;
-  padding: 10px;
-  margin-top: 15px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  background: crimson;
-  color: white;
-}
-
-.hidden {
-  display: none;
-}
-
-#message {
-  min-height: 20px;
-  font-size: 13px;
-  margin-bottom: 10px;
-  color: #f87171;
-}
+.card:hover{
