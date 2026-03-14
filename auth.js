@@ -16,8 +16,7 @@ const signupForm = document.getElementById("signupForm");
 const tabLogin = document.getElementById("tabLogin");
 const tabSignup = document.getElementById("tabSignup");
 
-const toSignup = document.getElementById("toSignup");
-const toLogin = document.getElementById("toLogin");
+const indicator = document.getElementById("tabIndicator");
 
 const msg = document.getElementById("msg");
 
@@ -26,8 +25,9 @@ function showLogin(){
 loginForm.classList.add("active");
 signupForm.classList.remove("active");
 
-tabLogin.classList.add("active");
-tabSignup.classList.remove("active");
+indicator.style.left="0%";
+
+msg.innerText="";
 
 }
 
@@ -36,16 +36,16 @@ function showSignup(){
 signupForm.classList.add("active");
 loginForm.classList.remove("active");
 
-tabSignup.classList.add("active");
-tabLogin.classList.remove("active");
+indicator.style.left="50%";
+
+msg.innerText="";
 
 }
 
 tabLogin.onclick = showLogin;
 tabSignup.onclick = showSignup;
 
-toSignup.onclick = showSignup;
-toLogin.onclick = showLogin;
+/* LOGIN */
 
 document.getElementById("loginBtn").onclick = async ()=>{
 
@@ -65,6 +65,8 @@ msg.innerText = e.message;
 }
 
 };
+
+/* SIGNUP */
 
 document.getElementById("signupBtn").onclick = async ()=>{
 
