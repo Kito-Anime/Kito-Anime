@@ -1,39 +1,67 @@
-import { auth } from "./firebase.js";
+import { auth, db } from "./firebase.js";
 
 import {
-
 createUserWithEmailAndPassword,
 signInWithEmailAndPassword
-
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+import {
+doc,
+setDoc
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+let mode = "login";
 
 const email = document.getElementById("email");
 const password = document.getElementById("password");
 const msg = document.getElementById("msg");
 
-window.signup = async () => {
+const formTitle = document.getElementById("formTitle");
+const submitBtn = document.getElementById("submitBtn");
 
-try {
+const switchLabel = document.getElementById("switchLabel");
+const switchLink = document.getElementById("switchLink");
 
-await createUserWithEmailAndPassword(
-auth,
-email.value,
-password.value
-);
+const btnLogin = document.getElementById("btnLogin");
+const btnSignup = document.getElementById("btnSignup");
 
-msg.innerText = "Account created";
+btnLogin.onclick = () => setMode("login");
+btnSignup.onclick = () => setMode("signup");
+switchLink.onclick = () => setMode(mode === "login" ? "signup" : "login");
 
-} catch(e){
+function setMode(m){
 
-msg.innerText = e.message;
+mode = m;
+
+msg.innerText = "";
+
+if(mode === "login"){
+
+formTitle.innerText = "Đăng nhập";
+submitBtn.innerText = "Đăng nhập";
+
+switchLabel.innerText = "Chưa có tài khoản?";
+switchLink.innerText = "Đăng kí";
+
+}else{
+
+formTitle.innerText = "Đăng kí";
+submitBtn.innerText = "Đăng kí";
+
+switchLabel.innerText = "Đã có tài khoản?";
+switchLink.innerText = "Đăng nhập";
 
 }
 
-};
+}
 
-window.login = async () => {
+submitBtn.onclick = async () => {
 
-try {
+msg.innerText = "";
+
+try{
+
+if(mode === "login"){
 
 await signInWithEmailAndPassword(
 auth,
@@ -43,7 +71,27 @@ password.value
 
 location.href="index.html";
 
-} catch(e){
+}else{
+
+const cred = await createUserWithEmailAndPassword(
+auth,
+email.value,
+password.value
+);
+
+await setDoc(doc(db,"users",cred.user.uid),{
+email:cred.user.email,
+createdAt:Date.now(),
+role:"user"
+});
+
+msg.innerText = "Tạo tài khoản thành công";
+
+setMode("login");
+
+}
+
+}catch(e){
 
 msg.innerText = e.message;
 
