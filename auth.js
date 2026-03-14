@@ -10,74 +10,70 @@ doc,
 setDoc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-let mode = "login";
+const loginForm = document.getElementById("loginForm");
+const signupForm = document.getElementById("signupForm");
 
-const email = document.getElementById("email");
-const password = document.getElementById("password");
+const tabLogin = document.getElementById("tabLogin");
+const tabSignup = document.getElementById("tabSignup");
+
+const toSignup = document.getElementById("toSignup");
+const toLogin = document.getElementById("toLogin");
+
 const msg = document.getElementById("msg");
 
-const formTitle = document.getElementById("formTitle");
-const submitBtn = document.getElementById("submitBtn");
+function showLogin(){
 
-const switchLabel = document.getElementById("switchLabel");
-const switchLink = document.getElementById("switchLink");
+loginForm.classList.add("active");
+signupForm.classList.remove("active");
 
-const btnLogin = document.getElementById("btnLogin");
-const btnSignup = document.getElementById("btnSignup");
-
-btnLogin.onclick = () => setMode("login");
-btnSignup.onclick = () => setMode("signup");
-switchLink.onclick = () => setMode(mode === "login" ? "signup" : "login");
-
-function setMode(m){
-
-mode = m;
-
-msg.innerText = "";
-
-if(mode === "login"){
-
-formTitle.innerText = "Đăng nhập";
-submitBtn.innerText = "Đăng nhập";
-
-switchLabel.innerText = "Chưa có tài khoản?";
-switchLink.innerText = "Đăng kí";
-
-}else{
-
-formTitle.innerText = "Đăng kí";
-submitBtn.innerText = "Đăng kí";
-
-switchLabel.innerText = "Đã có tài khoản?";
-switchLink.innerText = "Đăng nhập";
+tabLogin.classList.add("active");
+tabSignup.classList.remove("active");
 
 }
 
+function showSignup(){
+
+signupForm.classList.add("active");
+loginForm.classList.remove("active");
+
+tabSignup.classList.add("active");
+tabLogin.classList.remove("active");
+
 }
 
-submitBtn.onclick = async () => {
+tabLogin.onclick = showLogin;
+tabSignup.onclick = showSignup;
 
-msg.innerText = "";
+toSignup.onclick = showSignup;
+toLogin.onclick = showLogin;
+
+document.getElementById("loginBtn").onclick = async ()=>{
+
+const email = document.getElementById("loginEmail").value;
+const password = document.getElementById("loginPassword").value;
 
 try{
 
-if(mode === "login"){
-
-await signInWithEmailAndPassword(
-auth,
-email.value,
-password.value
-);
+await signInWithEmailAndPassword(auth,email,password);
 
 location.href="index.html";
 
-}else{
+}catch(e){
 
-const cred = await createUserWithEmailAndPassword(
-auth,
-email.value,
-password.value
-);
+msg.innerText = e.message;
+
+}
+
+};
+
+document.getElementById("signupBtn").onclick = async ()=>{
+
+const email = document.getElementById("signupEmail").value;
+const password = document.getElementById("signupPassword").value;
+
+try{
+
+const cred = await createUserWithEmailAndPassword(auth,email,password);
 
 await setDoc(doc(db,"users",cred.user.uid),{
 email:cred.user.email,
@@ -85,11 +81,9 @@ createdAt:Date.now(),
 role:"user"
 });
 
-msg.innerText = "Tạo tài khoản thành công";
+msg.innerText="Đăng kí thành công";
 
-setMode("login");
-
-}
+showLogin();
 
 }catch(e){
 
