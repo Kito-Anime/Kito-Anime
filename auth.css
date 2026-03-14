@@ -31,26 +31,41 @@ transform:translate(-50%,-50%);
 text-align:center;
 }
 
-.tabs{
+/* tab bar */
+
+.tab-bar{
+position:relative;
+display:flex;
+background:#1f1f1f;
+border-radius:10px;
 margin-bottom:20px;
+overflow:hidden;
 }
 
-.tabs button{
-padding:10px 20px;
+.tab-bar button{
+flex:1;
+padding:12px;
 border:none;
-background:#1f1f1f;
+background:none;
 color:white;
 cursor:pointer;
-margin:5px;
-border-radius:8px;
+font-size:15px;
+z-index:2;
 }
 
-.tabs button.active{
+#tabIndicator{
+position:absolute;
+width:50%;
+height:100%;
 background:#7a00ff;
+border-radius:10px;
+transition:0.3s;
+z-index:1;
 }
+
+/* forms */
 
 .forms{
-position:relative;
 width:280px;
 }
 
@@ -99,17 +114,6 @@ cursor:pointer;
 
 button:hover{
 background:#9d2bff;
-}
-
-.switchText{
-margin-top:10px;
-font-size:14px;
-color:#aaa;
-}
-
-.switchText a{
-color:#7a00ff;
-cursor:pointer;
 }
 
 #msg{
