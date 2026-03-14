@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kito Anime</title>
 <link rel="stylesheet" href="style.css">
 </head>
@@ -16,28 +16,47 @@
 <input id="search" placeholder="Tìm anime...">
 
 <div class="account">
-<span id="userEmail"></span>
+
+<button id="accountBtn" class="account-btn">
+<img id="avatar" src="https://cdn-icons-png.flaticon.com/512/149/149071.png">
+<span id="userEmail">Tài khoản</span>
+</button>
+
+<div id="accountMenu" class="account-menu">
+
+<div class="menu-user">
+<img src="https://cdn-icons-png.flaticon.com/512/149/149071.png">
+<div>
+<p id="menuEmail">Chưa đăng nhập</p>
+<small>Account</small>
+</div>
+</div>
+
 <button id="loginBtn">Đăng nhập</button>
 <button id="logoutBtn">Đăng xuất</button>
+
+</div>
+
 </div>
 
 </header>
-
-<main>
 
 <section class="banner">
 <h1>Anime mới</h1>
 </section>
 
-<section>
+<section class="anime-list">
 
 <h2>Danh sách anime</h2>
 
 <div id="animeGrid" class="grid"></div>
 
-</section>
+<div id="loginNotice" class="login-notice">
+<p>Phải đăng nhập để xem anime</p>
+<button onclick="goLogin()">Đăng nhập</button>
+</div>
 
-</main>
+</section>
 
 <script type="module" src="index.js"></script>
 
