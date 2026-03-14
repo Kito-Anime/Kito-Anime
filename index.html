@@ -1,31 +1,54 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>Đăng Kí & Đăng Nhập</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kito Anime</title>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <div class="auth-box">
-    <h2>Hệ thống tài khoản</h2>
+<header>
 
-    <div class="tabs">
-      <button id="loginTab" class="tab active">Đăng nhập</button>
-      <button id="registerTab" class="tab">Đăng ký</button>
-    </div>
+<div class="logo">
+Kito Anime
+</div>
 
-    <div id="message"></div>
+<input id="search" placeholder="Tìm anime...">
 
-    <form id="authForm" autocomplete="off">
-      <input type="email" id="email" placeholder="Email" required>
-      <input type="password" id="password" placeholder="Mật khẩu (≥6 ký tự)" required minlength="6">
-      <button type="submit" id="submitBtn">Đăng nhập</button>
-    </form>
+<nav>
+<a href="#">Trang chủ</a>
+<a href="#">Anime</a>
+<a href="#">Thể loại</a>
+<a href="auth.html">Tài khoản</a>
+</nav>
 
-    <button id="logoutBtn" class="hidden">Đăng xuất</button>
-  </div>
+</header>
 
-  <script type="module" src="app.js"></script>
+<section class="banner">
+
+<h1>Anime mới cập nhật</h1>
+
+</section>
+
+<section class="anime-section">
+
+<h2>Danh sách anime</h2>
+
+<div id="animeGrid" class="anime-grid">
+
+</div>
+
+</section>
+
+<footer>
+
+<p>Kito Anime</p>
+
+</footer>
+
+<script src="app.js" type="module"></script>
+
 </body>
 </html>
