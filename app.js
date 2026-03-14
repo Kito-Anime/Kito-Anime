@@ -1,29 +1,30 @@
-import { auth } from "./firebase.js";
+import { auth, db } from "./firebase.js";
 
 import {
 onAuthStateChanged,
 signOut
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-const userEmail = document.getElementById("userEmail");
-const loginBtn = document.getElementById("loginBtn");
-const logoutBtn = document.getElementById("logoutBtn");
+import {
+collection,
+getDocs
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-/* kiểm tra đăng nhập */
+const userEmail=document.getElementById("userEmail");
+const loginBtn=document.getElementById("loginBtn");
+const logoutBtn=document.getElementById("logoutBtn");
 
 onAuthStateChanged(auth,(user)=>{
 
 if(user){
 
-userEmail.textContent = user.email;
-
+userEmail.textContent=user.email;
 loginBtn.style.display="none";
 logoutBtn.style.display="block";
 
 }else{
 
 userEmail.textContent="";
-
 loginBtn.style.display="block";
 logoutBtn.style.display="none";
 
@@ -31,51 +32,41 @@ logoutBtn.style.display="none";
 
 });
 
-/* login */
-
-loginBtn.onclick = ()=>{
-
+loginBtn.onclick=()=>{
 location.href="auth.html";
-
 };
 
-/* logout */
-
-logoutBtn.onclick = async ()=>{
-
+logoutBtn.onclick=async()=>{
 await signOut(auth);
-
 };
-
-/* demo anime */
-
-const animeData=[
-
-{
-title:"Attack on Titan",
-image:"https://cdn.myanimelist.net/images/anime/10/47347.jpg"
-},
-
-{
-title:"Demon Slayer",
-image:"https://cdn.myanimelist.net/images/anime/1286/99889.jpg"
-}
-
-];
 
 const grid=document.getElementById("animeGrid");
 
-animeData.forEach(a=>{
+async function loadAnime(){
+
+const snap=await getDocs(collection(db,"anime"));
+
+snap.forEach(doc=>{
+
+const data=doc.data();
 
 const card=document.createElement("div");
 
 card.className="card";
 
 card.innerHTML=`
-<img src="${a.image}">
-<h3>${a.title}</h3>
+<img src="${data.thumbnail}">
+<h3>${data.title}</h3>
 `;
+
+card.onclick=()=>{
+location.href=`player.html?id=${doc.id}`;
+};
 
 grid.appendChild(card);
 
 });
+
+}
+
+loadAnime();
