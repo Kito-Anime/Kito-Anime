@@ -14,16 +14,24 @@
 
 <h1>Kito Anime</h1>
 
-<div class="form">
+<div class="auth-switch">
+<button id="btnLogin">Đăng nhập</button>
+<button id="btnSignup">Đăng kí</button>
+</div>
+
+<div class="form" id="formBox">
+
+<h2 id="formTitle">Đăng nhập</h2>
 
 <input id="email" type="email" placeholder="Email">
+<input id="password" type="password" placeholder="Mật khẩu">
 
-<input id="password" type="password" placeholder="Password">
+<button id="submitBtn">Đăng nhập</button>
 
-<div class="buttons">
-<button onclick="login()">Sign In</button>
-<button onclick="signup()">Sign Up</button>
-</div>
+<p class="switchText">
+<span id="switchLabel">Chưa có tài khoản?</span>
+<a id="switchLink">Đăng kí</a>
+</p>
 
 <p id="msg"></p>
 
