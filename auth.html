@@ -14,28 +14,52 @@
 
 <h1>Kito Anime</h1>
 
-<div class="auth-switch">
-<button id="btnLogin">Đăng nhập</button>
-<button id="btnSignup">Đăng kí</button>
+<div class="tabs">
+<button id="tabLogin" class="active">Đăng nhập</button>
+<button id="tabSignup">Đăng kí</button>
 </div>
 
-<div class="form" id="formBox">
+<div class="forms">
 
-<h2 id="formTitle">Đăng nhập</h2>
+<!-- LOGIN -->
 
-<input id="email" type="email" placeholder="Email">
-<input id="password" type="password" placeholder="Mật khẩu">
+<div id="loginForm" class="form active">
 
-<button id="submitBtn">Đăng nhập</button>
+<h2>Đăng nhập</h2>
+
+<input id="loginEmail" type="email" placeholder="Email">
+<input id="loginPassword" type="password" placeholder="Mật khẩu">
+
+<button id="loginBtn">Đăng nhập</button>
 
 <p class="switchText">
-<span id="switchLabel">Chưa có tài khoản?</span>
-<a id="switchLink">Đăng kí</a>
+Chưa có tài khoản? 
+<a id="toSignup">Đăng kí</a>
 </p>
 
-<p id="msg"></p>
+</div>
+
+<!-- SIGNUP -->
+
+<div id="signupForm" class="form">
+
+<h2>Đăng kí</h2>
+
+<input id="signupEmail" type="email" placeholder="Email">
+<input id="signupPassword" type="password" placeholder="Mật khẩu">
+
+<button id="signupBtn">Tạo tài khoản</button>
+
+<p class="switchText">
+Đã có tài khoản? 
+<a id="toLogin">Đăng nhập</a>
+</p>
 
 </div>
+
+</div>
+
+<p id="msg"></p>
 
 </div>
 
