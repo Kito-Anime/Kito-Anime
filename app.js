@@ -1,95 +1,81 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { auth } from "./firebase.js";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyBP9ZnwzQrrRY5JNy1DANm3boaWgvhoS_w",
-  authDomain: "kito-anime-vn.firebaseapp.com",
-  projectId: "kito-anime-vn",
-  storageBucket: "kito-anime-vn.firebasestorage.app",
-  messagingSenderId: "287480619398",
-  appId: "1:287480619398:web:f40d137345407f27874c07",
-  measurementId: "G-N29YRE1NQS"
-};
+import {
+onAuthStateChanged,
+signOut
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-
-/* DOM */
-const loginTab = document.getElementById("loginTab");
-const registerTab = document.getElementById("registerTab");
-const authForm = document.getElementById("authForm");
-const submitBtn = document.getElementById("submitBtn");
+const userEmail = document.getElementById("userEmail");
+const loginBtn = document.getElementById("loginBtn");
 const logoutBtn = document.getElementById("logoutBtn");
-const message = document.getElementById("message");
 
-let isLogin = true;
+/* kiểm tra đăng nhập */
 
-/* Chuyển tab */
-loginTab.onclick = () => {
-  isLogin = true;
-  submitBtn.textContent = "Đăng nhập";
-  loginTab.classList.add("active");
-  registerTab.classList.remove("active");
-  message.textContent = "";
+onAuthStateChanged(auth,(user)=>{
+
+if(user){
+
+userEmail.textContent = user.email;
+
+loginBtn.style.display="none";
+logoutBtn.style.display="block";
+
+}else{
+
+userEmail.textContent="";
+
+loginBtn.style.display="block";
+logoutBtn.style.display="none";
+
+}
+
+});
+
+/* login */
+
+loginBtn.onclick = ()=>{
+
+location.href="auth.html";
+
 };
 
-registerTab.onclick = () => {
-  isLogin = false;
-  submitBtn.textContent = "Đăng ký";
-  registerTab.classList.add("active");
-  loginTab.classList.remove("active");
-  message.textContent = "";
+/* logout */
+
+logoutBtn.onclick = async ()=>{
+
+await signOut(auth);
+
 };
 
-/* Submit */
-authForm.onsubmit = async (e) => {
-  e.preventDefault();
+/* demo anime */
 
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value.trim();
+const animeData=[
 
-  if (password.length < 6) {
-    message.textContent = "Mật khẩu tối thiểu 6 ký tự";
-    return;
-  }
+{
+title:"Attack on Titan",
+image:"https://cdn.myanimelist.net/images/anime/10/47347.jpg"
+},
 
-  try {
-    if (isLogin) {
-      await signInWithEmailAndPassword(auth, email, password);
-      message.style.color = "#4ade80";
-      message.textContent = "Đăng nhập thành công";
-    } else {
-      await createUserWithEmailAndPassword(auth, email, password);
-      message.style.color = "#4ade80";
-      message.textContent = "Đăng ký thành công";
-    }
-  } catch (error) {
-    message.style.color = "#f87171";
-    message.textContent = error.message;
-  }
-};
+{
+title:"Demon Slayer",
+image:"https://cdn.myanimelist.net/images/anime/1286/99889.jpg"
+}
 
-/* Logout */
-logoutBtn.onclick = async () => {
-  await signOut(auth);
-};
+];
 
-/* Theo dõi trạng thái */
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    authForm.classList.add("hidden");
-    logoutBtn.classList.remove("hidden");
-    message.style.color = "#4ade80";
-    message.textContent = "Đã đăng nhập: " + user.email;
-  } else {
-    authForm.classList.remove("hidden");
-    logoutBtn.classList.add("hidden");
-    message.textContent = "";
-  }
+const grid=document.getElementById("animeGrid");
+
+animeData.forEach(a=>{
+
+const card=document.createElement("div");
+
+card.className="card";
+
+card.innerHTML=`
+<img src="${a.image}">
+<h3>${a.title}</h3>
+`;
+
+grid.appendChild(card);
+
 });
