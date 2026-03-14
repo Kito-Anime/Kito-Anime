@@ -1,30 +1,42 @@
-import { auth, db } from "./firebase.js";
+import { auth } from "./firebase.js";
 
 import {
 onAuthStateChanged,
 signOut
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-import {
-collection,
-getDocs
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+const accountBtn = document.getElementById("accountBtn");
+const accountMenu = document.getElementById("accountMenu");
 
-const userEmail=document.getElementById("userEmail");
-const loginBtn=document.getElementById("loginBtn");
-const logoutBtn=document.getElementById("logoutBtn");
+const userEmail = document.getElementById("userEmail");
+const menuEmail = document.getElementById("menuEmail");
+
+const loginBtn = document.getElementById("loginBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+
+let currentUser = null;
+
+/* kiểm tra đăng nhập */
 
 onAuthStateChanged(auth,(user)=>{
 
 if(user){
 
-userEmail.textContent=user.email;
+currentUser = user;
+
+userEmail.textContent = user.email;
+menuEmail.textContent = user.email;
+
 loginBtn.style.display="none";
 logoutBtn.style.display="block";
 
 }else{
 
-userEmail.textContent="";
+currentUser = null;
+
+userEmail.textContent="Tài khoản";
+menuEmail.textContent="Chưa đăng nhập";
+
 loginBtn.style.display="block";
 logoutBtn.style.display="none";
 
@@ -32,41 +44,43 @@ logoutBtn.style.display="none";
 
 });
 
-loginBtn.onclick=()=>{
-location.href="auth.html";
+/* mở menu tài khoản */
+
+accountBtn.onclick=()=>{
+
+accountMenu.style.display =
+accountMenu.style.display==="flex"
+? "none"
+: "flex";
+
 };
+
+/* chuyển sang trang đăng nhập */
+
+loginBtn.onclick=()=>{
+
+location.href="auth.html";
+
+};
+
+/* đăng xuất */
 
 logoutBtn.onclick=async()=>{
+
 await signOut(auth);
+
+accountMenu.style.display="none";
+
 };
 
-const grid=document.getElementById("animeGrid");
+/* đóng menu khi click ngoài */
 
-async function loadAnime(){
+document.addEventListener("click",(e)=>{
 
-const snap=await getDocs(collection(db,"anime"));
+if(!accountBtn.contains(e.target) && !accountMenu.contains(e.target)){
 
-snap.forEach(doc=>{
-
-const data=doc.data();
-
-const card=document.createElement("div");
-
-card.className="card";
-
-card.innerHTML=`
-<img src="${data.thumbnail}">
-<h3>${data.title}</h3>
-`;
-
-card.onclick=()=>{
-location.href=`player.html?id=${doc.id}`;
-};
-
-grid.appendChild(card);
-
-});
+accountMenu.style.display="none";
 
 }
 
-loadAnime();
+});
