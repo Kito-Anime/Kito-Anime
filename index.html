@@ -11,44 +11,45 @@
 
 <header>
 
-<div class="logo">
-Kito Anime
-</div>
+<div class="logo">Kito Anime</div>
 
 <input id="search" placeholder="Tìm anime...">
 
 <nav>
+
 <a href="#">Trang chủ</a>
 <a href="#">Anime</a>
-<a href="#">Thể loại</a>
-<a href="auth.html">Tài khoản</a>
+
+<div class="account">
+
+<span id="userEmail"></span>
+
+<button id="loginBtn">Đăng nhập</button>
+<button id="logoutBtn">Đăng xuất</button>
+
+</div>
+
 </nav>
 
 </header>
 
 <section class="banner">
-
 <h1>Anime mới cập nhật</h1>
-
 </section>
 
 <section class="anime-section">
 
 <h2>Danh sách anime</h2>
 
-<div id="animeGrid" class="anime-grid">
-
-</div>
+<div id="animeGrid" class="anime-grid"></div>
 
 </section>
 
 <footer>
-
 <p>Kito Anime</p>
-
 </footer>
 
-<script src="app.js" type="module"></script>
+<script type="module" src="app.js"></script>
 
 </body>
 </html>
